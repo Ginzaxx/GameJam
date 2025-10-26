@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 73941be77a4e0ec41a51483df93186af
+guid: 02468ece15d7fe64a9f70aff111e3a0f
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,8 +48,8 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 16
-  spriteBorder: {x: 0, y: 16, z: 16, w: 0}
+  spritePixelsToUnits: 32
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
@@ -123,13 +123,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: wall_0
+      name: SECURITY_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 16
-        width: 16
-        height: 48
+        y: 96
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -137,72 +137,24 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e96c8300975f6bb49a995a50e3d9fdbb
-      internalID: 1174058924
+      spriteID: 088a4fa0bf79f6949b7e8186ebfacc08
+      internalID: -527043856
       vertices: []
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: wall_1
-      rect:
-        serializedVersion: 2
-        x: 16
-        y: 16
-        width: 16
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e965afb9b6eb8374bbdbbc305f7a654d
-      internalID: 1418424575
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: wall_2
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 16
-        width: 16
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 1a6e970d2356ffe44857820a612a2755
-      internalID: 1573693117
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    outline:
-    - - {x: -32, y: -32}
-      - {x: 32, y: -32}
-      - {x: 32, y: 32}
-      - {x: -32, y: 32}
+    outline: []
     physicsShape: []
     bones: []
     spriteID: 5e97eb03825dee720800000000000000
-    internalID: 1537655665
+    internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      wall_0: 1174058924
-      wall_1: 1418424575
-      wall_2: 1573693117
+      SECURITY_0: -527043856
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
