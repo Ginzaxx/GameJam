@@ -1,7 +1,8 @@
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 [RequireComponent(typeof(Rigidbody2D))]
-[RequireComponent(typeof(CapsuleCollider2D))]
+[RequireComponent(typeof(BoxCollider2D))]
 public class SeekerAI : MonoBehaviour
 {
     [Header("Movement Settings")]
@@ -15,47 +16,28 @@ public class SeekerAI : MonoBehaviour
 
     [Header("Detection Settings")]
     public float loseSightDelay = 2f;
+    private float loseTimer;
 
     [Header("Visual Settings")]
-    [Tooltip("Sprite tubuh karakter (tidak ikut rotate, hanya ganti arah).")]
-    public SpriteRenderer bodyRenderer;
+    public SpriteRenderer spriteRenderer;
+    private bool facingRight = true;
 
-    [Tooltip("Sprite cahaya yang akan ikut rotate arah pandang).")]
-    public Transform lightVisual;
+    [Header("Vision Settings")]
+    public Light2D visionLight;          // Light milik seeker
+    public Transform visionCollider;     // Collider trigger penglihatan (child)
+    public float rotationSpeed = 10f;    // Seberapa cepat rotasi mengikuti arah
 
-    [Tooltip("Transform collider (biasanya di root).")]
-    public Transform colliderVisual;
-
-    [Header("Body Direction Sprites")]
-    public Sprite spriteUp;
-    public Sprite spriteDown;
-    public Sprite spriteLeft;
-    public Sprite spriteRight;
-
-    public float rotationLerpSpeed = 10f; // untuk rotasi cahaya dan collider
-
-    private Transform player;
     private Rigidbody2D rb;
-    private CapsuleCollider2D detectionCollider;
+    private Transform player;
     private bool isChasing = false;
-    private float loseTimer;
-    private Vector2 lastDir = Vector2.right;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        detectionCollider = GetComponent<CapsuleCollider2D>();
-        detectionCollider.isTrigger = true;
-
         player = GameObject.FindGameObjectWithTag("Player")?.transform;
 
-        if (bodyRenderer == null)
-            bodyRenderer = GetComponentInChildren<SpriteRenderer>();
-
-        if (lightVisual == null)
-            Debug.LogWarning("⚠️ Assign 'lightVisual' (sprite cahaya) di Inspector!");
-        if (colliderVisual == null)
-            colliderVisual = detectionCollider.transform;
+        if (spriteRenderer == null)
+            spriteRenderer = GetComponentInChildren<SpriteRenderer>();
     }
 
     private void Update()
@@ -65,8 +47,8 @@ public class SeekerAI : MonoBehaviour
         else
             Patrol();
 
-        UpdateBodySprite();
-        RotateLightAndCollider();
+        HandleFlip();
+        RotateVisionToDirection();
     }
 
     private void Patrol()
@@ -75,13 +57,12 @@ public class SeekerAI : MonoBehaviour
 
         Vector2 target = patrolPoints[currentPoint].position;
         Vector2 dir = (target - (Vector2)transform.position).normalized;
-        lastDir = dir;
 
         RaycastHit2D hit = Physics2D.Raycast(transform.position, dir, obstacleAvoidanceDistance, LayerMask.GetMask("Obstacle"));
         if (hit.collider == null)
             rb.velocity = dir * patrolSpeed;
         else
-            rb.velocity = Vector2.Perpendicular(dir) * patrolSpeed;
+            rb.velocity = Vector2.Perpendicular(dir).normalized * patrolSpeed;
 
         if (Vector2.Distance(transform.position, target) < 0.3f)
             currentPoint = (currentPoint + 1) % patrolPoints.Length;
@@ -92,13 +73,12 @@ public class SeekerAI : MonoBehaviour
         if (player == null) return;
 
         Vector2 dir = (player.position - transform.position).normalized;
-        lastDir = dir;
-
         RaycastHit2D hit = Physics2D.Raycast(transform.position, dir, obstacleAvoidanceDistance, LayerMask.GetMask("Obstacle"));
+
         if (hit.collider == null)
             rb.velocity = dir * chaseSpeed;
         else
-            rb.velocity = Vector2.Perpendicular(dir) * chaseSpeed;
+            rb.velocity = Vector2.Perpendicular(dir).normalized * chaseSpeed;
 
         if (loseTimer > 0)
         {
@@ -108,53 +88,42 @@ public class SeekerAI : MonoBehaviour
         }
     }
 
-    private void UpdateBodySprite()
+    private void HandleFlip()
     {
-        Vector2 v = rb.velocity;
-
-        // Tentukan arah dominan
-        if (Mathf.Abs(v.x) > Mathf.Abs(v.y))
+        if (rb.velocity.x > 0.1f && !facingRight)
         {
-            if (v.x > 0.1f) bodyRenderer.sprite = spriteRight;
-            else if (v.x < -0.1f) bodyRenderer.sprite = spriteLeft;
+            facingRight = true;
+            spriteRenderer.flipX = false;
         }
-        else
+        else if (rb.velocity.x < -0.1f && facingRight)
         {
-            if (v.y > 0.1f) bodyRenderer.sprite = spriteUp;
-            else if (v.y < -0.1f) bodyRenderer.sprite = spriteDown;
+            facingRight = false;
+            spriteRenderer.flipX = true;
         }
     }
 
-    private void RotateLightAndCollider()
+    private void RotateVisionToDirection()
     {
-        if (lastDir == Vector2.zero) return;
+        if (rb.velocity.sqrMagnitude < 0.01f) return;
 
-        // Arah dominan
-        float angle = 0f;
-        if (Mathf.Abs(lastDir.x) > Mathf.Abs(lastDir.y))
-        {
-            // Kiri / kanan
-            angle = (lastDir.x > 0) ? 0f : 180f;
-        }
-        else
-        {
-            // Atas / bawah
-            angle = (lastDir.y > 0) ? 90f : -90f;
-        }
+        Vector2 moveDir = rb.velocity.normalized;
+        float angle = Mathf.Atan2(moveDir.y, moveDir.x) * Mathf.Rad2Deg;
 
-        Quaternion targetRot = Quaternion.Euler(0, 0, angle);
+        Quaternion targetRot = Quaternion.Euler(0, 0, angle + 0f);
 
-        // Rotasi cahaya (sprite)
-        if (lightVisual != null)
-            lightVisual.rotation = Quaternion.Lerp(lightVisual.rotation, targetRot, Time.deltaTime * rotationLerpSpeed);
+        if (visionLight != null)
+            visionLight.transform.rotation = Quaternion.Lerp(visionLight.transform.rotation, targetRot, Time.deltaTime * rotationSpeed);
 
-        // Rotasi collider (CapsuleCollider2D horizontal)
-        if (colliderVisual != null)
-            colliderVisual.rotation = Quaternion.Lerp(colliderVisual.rotation, targetRot, Time.deltaTime * rotationLerpSpeed);
+        if (visionCollider != null)
+            visionCollider.rotation = Quaternion.Lerp(visionCollider.rotation, targetRot, Time.deltaTime * rotationSpeed);
     }
 
+    // ================================
+    // 👁️ Vision Collider (Trigger)
+    // ================================
     private void OnTriggerEnter2D(Collider2D other)
     {
+        // Kalau player masuk ke area cahaya penglihatan
         if (other.CompareTag("Player"))
         {
             isChasing = true;
@@ -165,8 +134,25 @@ public class SeekerAI : MonoBehaviour
     private void OnTriggerExit2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
-        {
             loseTimer = loseSightDelay;
+    }
+
+    // ================================
+    // 🧍 Body Collider (Non-trigger)
+    // ================================
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.CompareTag("Player"))
+        {
+            TriggerGameOver();
         }
+    }
+
+    private void TriggerGameOver()
+    {
+        Debug.Log("💀 GAME OVER: Player tertangkap oleh Seeker!");
+        rb.velocity = Vector2.zero;
+        Time.timeScale = 0f;
+        GameOverUI.Show();
     }
 }
