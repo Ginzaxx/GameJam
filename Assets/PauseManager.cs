@@ -6,27 +6,39 @@ public class PauseManager : MonoBehaviour
 {
     [Header("UI Elements")]
     public GameObject pauseMenuPanel;    // Panel pause menu
-    public Button pauseButton;           // Tombol pause utama
+    public Button pauseButton;           // Tombol pause utama (UI)
     public Button resumeButton;          // Tombol resume di menu
     public Button settingsButton;        // Tombol settings di menu
-    public Button exitButton;            // Tombol exit di menu
+    public Button mainMenuButton;        // Tombol kembali ke main menu
 
     [Header("Button Icons")]
     public Sprite pauseSprite;   // Icon || (game berjalan)
     public Sprite playSprite;    // Icon ▶ (game di-pause)
 
+    [Header("Scene Settings")]
+    public string mainMenuSceneName = "MainMenu"; // Nama scene main menu
+
     private bool isPaused = false;
 
     private void Start()
     {
-        // Pastikan panel tidak aktif saat mulai
+        // Panel tidak aktif saat awal
         pauseMenuPanel.SetActive(false);
 
-        // Hubungkan tombol lewat kode
+        // Pasang listener tombol (tidak perlu OnClick manual)
         pauseButton.onClick.AddListener(TogglePause);
         resumeButton.onClick.AddListener(ResumeGame);
         settingsButton.onClick.AddListener(OpenSettings);
-        exitButton.onClick.AddListener(ExitGame);
+        mainMenuButton.onClick.AddListener(ReturnToMainMenu);
+    }
+
+    private void Update()
+    {
+        // Deteksi input ESC
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            TogglePause();
+        }
     }
 
     public void TogglePause()
@@ -57,18 +69,13 @@ public class PauseManager : MonoBehaviour
     private void OpenSettings()
     {
         Debug.Log("Buka menu Settings...");
-        // Tambahkan logika buka panel Settings di sini
+        // Di sini bisa kamu tambahkan logika buka panel Settings
     }
 
-    private void ExitGame()
+    private void ReturnToMainMenu()
     {
-        Debug.Log("Keluar dari game...");
+        Debug.Log("Kembali ke Main Menu...");
         Time.timeScale = 1f;
-
-#if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-#else
-        Application.Quit();
-#endif
+        SceneManager.LoadScene(mainMenuSceneName);
     }
 }
