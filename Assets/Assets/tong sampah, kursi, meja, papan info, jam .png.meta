@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 73941be77a4e0ec41a51483df93186af
+guid: 75ba59ae748539b4ab7d614021245c58
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -49,7 +49,7 @@ TextureImporter:
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 16
-  spriteBorder: {x: 0, y: 16, z: 16, w: 0}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
@@ -123,13 +123,160 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: wall_0
+      name: tong sampah, kursi, meja, papan info, jam _0
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 0
+        width: 12
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 96cfa92b143aaf947a1d8743ae7b1b95
+      internalID: 918093485
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tong sampah, kursi, meja, papan info, jam _1
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 0
+        width: 12
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5923e73397a458d4d9479049c2b996b9
+      internalID: 419042685
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tong sampah, kursi, meja, papan info, jam _2
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 46
+        width: 14
+        height: 17
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5af95489196c4b04e9ae7dd3b2697c36
+      internalID: -145182595
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tong sampah, kursi, meja, papan info, jam _3
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 51
+        width: 12
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ac7f1d859cd84714dbabea1f244be1b6
+      internalID: -1165639736
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tong sampah, kursi, meja, papan info, jam _4
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 24
+        width: 26
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b518457e5e2ee764bbf863a2ead0cdb9
+      internalID: 124394587
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tong sampah, kursi, meja, papan info, jam _5
+      rect:
+        serializedVersion: 2
+        x: 31
+        y: 2
+        width: 31
+        height: 17
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bcc26c49d753881408aa644a86c8a953
+      internalID: 1456602986
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tong sampah, kursi, meja, papan info, jam _6
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 31
+        width: 12
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 39313f3da8aee664b871b933125b71fd
+      internalID: 23549963
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tong sampah, kursi, meja, papan info, jam _7
       rect:
         serializedVersion: 2
         x: 0
-        y: 16
-        width: 16
-        height: 48
+        y: 31
+        width: 12
+        height: 33
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -137,116 +284,31 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e96c8300975f6bb49a995a50e3d9fdbb
-      internalID: 1174058924
+      spriteID: b4f383cd605913449a250ba6e305104f
+      internalID: -1959340334
       vertices: []
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: wall_1
-      rect:
-        serializedVersion: 2
-        x: 16
-        y: 16
-        width: 16
-        height: 48
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e965afb9b6eb8374bbdbbc305f7a654d
-      internalID: 1418424575
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: wall_2
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 56
-        width: 16
-        height: 8
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 1a6e970d2356ffe44857820a612a2755
-      internalID: 1573693117
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: wall_3
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 16
-        width: 16
-        height: 9
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6bc84402d6eabe9448f3468fb6661738
-      internalID: -1705948036
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: wall_4
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 20
-        width: 16
-        height: 36
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9f55562b7a109f1468213d145061ca98
-      internalID: 2009468521
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    outline:
-    - - {x: -32, y: -32}
-      - {x: 32, y: -32}
-      - {x: 32, y: 32}
-      - {x: -32, y: 32}
+    outline: []
     physicsShape: []
     bones: []
     spriteID: 5e97eb03825dee720800000000000000
-    internalID: 1537655665
+    internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      wall_0: 1174058924
-      wall_1: 1418424575
-      wall_2: 1573693117
-      wall_3: -1705948036
-      wall_4: 2009468521
+      tong sampah, kursi, meja, papan info, jam _0: 918093485
+      tong sampah, kursi, meja, papan info, jam _1: 419042685
+      tong sampah, kursi, meja, papan info, jam _2: -145182595
+      tong sampah, kursi, meja, papan info, jam _3: -1165639736
+      tong sampah, kursi, meja, papan info, jam _4: 124394587
+      tong sampah, kursi, meja, papan info, jam _5: 1456602986
+      tong sampah, kursi, meja, papan info, jam _6: 23549963
+      tong sampah, kursi, meja, papan info, jam _7: -1959340334
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
