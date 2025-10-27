@@ -1,10 +1,22 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI; // <- untuk Button
 
 public class GameOverUI : MonoBehaviour
 {
     [Header("UI Panel")]
+    [Tooltip("Panel Game Over utama yang akan diaktifkan ketika pemain mati.")]
     public GameObject gameOverPanel;
+
+    [Header("Buttons (Hubungkan di Inspector)")]
+    [Tooltip("Tombol untuk me-restart level saat ini.")]
+    public Button restartButton;
+    [Tooltip("Tombol untuk kembali ke Main Menu.")]
+    public Button quitButton;
+
+    [Header("Main Menu Scene Name")]
+    [Tooltip("Nama scene main menu. Harus sesuai di Build Settings.")]
+    public string mainMenuScene = "MainMenu";
 
     private static GameOverUI instance;
 
@@ -14,11 +26,27 @@ public class GameOverUI : MonoBehaviour
         if (instance == null)
             instance = this;
         else
+        {
             Destroy(gameObject);
+            return;
+        }
 
-        gameOverPanel.SetActive(false);
+        // Matikan panel saat awal
+        if (gameOverPanel != null)
+            gameOverPanel.SetActive(false);
     }
 
+    private void Start()
+    {
+        // ✅ Tambahkan event listener otomatis
+        if (restartButton != null)
+            restartButton.onClick.AddListener(RestartGame);
+
+        if (quitButton != null)
+            quitButton.onClick.AddListener(QuitGame);
+    }
+
+    // 🧩 Fungsi dipanggil dari script lain
     public static void Show()
     {
         if (instance == null)
@@ -32,17 +60,17 @@ public class GameOverUI : MonoBehaviour
         Debug.Log("💀 GAME OVER SCREEN DITAMPILKAN");
     }
 
-    // Tombol Restart
+    // 🔁 Tombol Restart
     public void RestartGame()
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
-    // Tombol Quit
+    // 🚪 Tombol Quit
     public void QuitGame()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene("MainMenu"); // ganti dengan nama scene menu kamu
+        SceneManager.LoadScene(mainMenuScene);
     }
 }

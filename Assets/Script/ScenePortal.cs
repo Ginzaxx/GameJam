@@ -18,12 +18,18 @@ public class ScenePortal : MonoBehaviour
     public GameObject interactUI;
     public KeyCode interactKey = KeyCode.E;
 
+    [Header("Audio")]
+    [Tooltip("Nama sound di SoundManager (misalnya: 'Lift')")]
+    public string liftSfxName = "Lift";
+    [Tooltip("Volume SFX lift")]
+    [Range(0f, 1f)] public float liftSfxVolume = 1f;
+
     private bool playerInRange;
+    private bool isTransitioning = false;
 
     private void Awake()
     {
 #if UNITY_EDITOR
-        // simpan nama scene dari SceneAsset agar tetap berfungsi di runtime
         if (targetScene != null)
             sceneName = targetScene.name;
 #endif
@@ -34,8 +40,10 @@ public class ScenePortal : MonoBehaviour
 
     private void Update()
     {
-        if (playerInRange && Input.GetKeyDown(interactKey))
-            ChangeScene();
+        if (playerInRange && Input.GetKeyDown(interactKey) && !isTransitioning)
+        {
+            StartCoroutine(PlayLiftAndChangeScene());
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -58,13 +66,20 @@ public class ScenePortal : MonoBehaviour
         }
     }
 
-    private void ChangeScene()
+    private System.Collections.IEnumerator PlayLiftAndChangeScene()
     {
         if (string.IsNullOrEmpty(sceneName))
         {
             Debug.LogWarning("⚠️ Scene tujuan belum dipilih di Inspector!");
-            return;
+            yield break;
         }
+
+        isTransitioning = true;
+
+        SoundManager.PlaySound("liftS");
+
+        // ⏱️ Tunggu 1 detik sebelum ganti scene
+        yield return new WaitForSeconds(1f);
 
         Debug.Log($"🔄 Memuat scene: {sceneName}");
         SceneManager.LoadScene(sceneName);

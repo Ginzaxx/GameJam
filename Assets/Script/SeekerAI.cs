@@ -109,7 +109,7 @@ public class SeekerAI : MonoBehaviour
         Vector2 moveDir = rb.velocity.normalized;
         float angle = Mathf.Atan2(moveDir.y, moveDir.x) * Mathf.Rad2Deg;
 
-        Quaternion targetRot = Quaternion.Euler(0, 0, angle + 0f);
+        Quaternion targetRot = Quaternion.Euler(0, 0, angle + 180f);
 
         if (visionLight != null)
             visionLight.transform.rotation = Quaternion.Lerp(visionLight.transform.rotation, targetRot, Time.deltaTime * rotationSpeed);
@@ -126,6 +126,7 @@ public class SeekerAI : MonoBehaviour
         // Kalau player masuk ke area cahaya penglihatan
         if (other.CompareTag("Player"))
         {
+            SoundManager.PlaySound("Beep");
             isChasing = true;
             loseTimer = 0f;
         }
@@ -144,6 +145,7 @@ public class SeekerAI : MonoBehaviour
     {
         if (collision.collider.CompareTag("Player"))
         {
+            SoundManager.PlaySound("Punch");
             TriggerGameOver();
         }
     }
